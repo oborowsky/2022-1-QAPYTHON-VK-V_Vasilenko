@@ -1,8 +1,8 @@
 import pytest
-from selenium.webdriver.remote.webelement import WebElement
+import uuid
 from base import BaseCase
+from random import randint
 from ui.locators import locators
-from constants import *
 
 
 class TestMyTarget(BaseCase):
@@ -10,44 +10,31 @@ class TestMyTarget(BaseCase):
     @pytest.mark.UI
     def test_login(self):
         self.login()
-        username = self.find(locators.USERNAME_LOCATOR)
-        assert isinstance(username, WebElement)
+        assert self.find(locators.USERNAME_LOCATOR)
 
     @pytest.mark.UI
     def test_logout(self):
         self.login()
         self.logout()
-        login_button = self.find(locators.LOGIN_BUTTON_LOCATOR)
-        assert isinstance(login_button, WebElement)
+        assert self.find(locators.LOGIN_BUTTON_LOCATOR)
 
     @pytest.mark.UI
     def test_contacts(self):
         self.login()
-
-        self.change_contacts(TEST_NAME1, TEST_PHONE1)
+        name = str(uuid.uuid4())
+        phone = str(randint(80000000000, 89999999999))
+        self.change_contacts(name, phone)
         self.driver.refresh()
-
-        current_name = self.find(locators.FULLNAME_INPUT_LOCATOR).get_attribute('value')
-        current_phone = self.find(locators.PHONE_INPUT_LOCATOR).get_attribute('value')
-        first_check = (current_name == TEST_NAME1 and current_phone == TEST_PHONE1)
-
-        self.change_contacts(TEST_NAME2, TEST_PHONE2)
-        self.driver.refresh()
-
-        current_name = self.find(locators.FULLNAME_INPUT_LOCATOR).get_attribute('value')
-        current_phone = self.find(locators.PHONE_INPUT_LOCATOR).get_attribute('value')
-        second_check = (current_name == TEST_NAME2 and current_phone == TEST_PHONE2)
-
-        assert first_check and second_check
+        assert self.check_contacts(name, phone)
 
     @pytest.mark.UI
     @pytest.mark.parametrize(
-        'locator, url',
+        'navigation_locator, destination_locator',
         [
-            (locators.PRO_LINK_LOCATOR, "https://target.my.com/pro"),
-            (locators.BILLING_LINK_LOCATOR, "https://target.my.com/billing")
+            (locators.PRO_LINK_LOCATOR, locators.SUBSCRIBE_EMAIL_LOCATOR),
+            (locators.BILLING_LINK_LOCATOR, locators.SUBMIT_PAYMENT_LOCATOR)
         ])
-    def test_navigation(self, locator, url):
+    def test_navigation(self, navigation_locator, destination_locator):
         self.login()
-        self.navigation(locator)
-        assert self.driver.current_url == url
+        self.navigation(navigation_locator)
+        assert self.find(destination_locator)

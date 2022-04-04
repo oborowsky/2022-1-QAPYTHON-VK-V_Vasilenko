@@ -21,3 +21,9 @@ BILLING_LINK_LOCATOR = (By.XPATH, '//a[contains(@class, "center-module-billing")
 FULLNAME_INPUT_LOCATOR = (By.XPATH, '//div[@data-name="fio"]//input')
 PHONE_INPUT_LOCATOR = (By.XPATH, '//div[@data-name="phone"]//input')
 SUBMIT_CONTACTS_LOCATOR = (By.XPATH, '//button[contains(@class, "button_submit")]')
+
+# Подписка на дайджест
+SUBSCRIBE_EMAIL_LOCATOR = (By.XPATH, '//input[contains(@class, "t-input_pvis")]')
+
+# Пополнение счета
+SUBMIT_PAYMENT_LOCATOR = (By.XPATH, '//input[contains(@class, "deposit__payment-form__submit")]')
