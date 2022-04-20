@@ -1,3 +1,6 @@
 pytest==7.1.1
-requests==2.27.1
+pytest-xdist==2.5.0
+SQLAlchemy==1.4.35
+pymysql==1.0.2
+cryptography==36.0.2
 
