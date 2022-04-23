@@ -1,3 +1,4 @@
+import os
 import pathlib
 import uuid
 from pathlib import Path
@@ -19,7 +20,8 @@ class CampaignNewPage(MainPage):
         company_name = str(uuid.uuid4())
         self.send_keys(self.locators.CAMPAGN_NAME_INPUT_LOCATOR, company_name)
         self.click(self.locators.CAMPAGN_FORMAT_BANNER_LOCATOR)
-        dir_path = pathlib.Path.cwd()
+        script_path = os.path.dirname(os.path.abspath(__file__))
+        dir_path = pathlib.Path(script_path).parents[1]
         file_path = Path(dir_path, 'static', 'files', 'my_ffxiv_character.jpg')
         banner_field = self.find(self.locators.ADD_UPLOAD_BANNER_LOCATOR, display=False)
         banner_field.send_keys(str(file_path))

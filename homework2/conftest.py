@@ -27,9 +27,13 @@ def driver(temp_dir):
 
 @pytest.fixture(scope='function')
 def temp_dir(request):
-    dir_path = pathlib.Path.cwd()
+    cwd_path = pathlib.Path.cwd()
+    dir_path = str(pathlib.Path(cwd_path, 'tmp'))
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
+
     node = str(request._pyfuncitem.nodeid).replace(':', '_')
-    file_path = str(pathlib.Path(dir_path, 'tmp', node))
+    file_path = str(pathlib.Path(dir_path, node))
     if not os.path.exists(file_path):
         os.mkdir(file_path)
 

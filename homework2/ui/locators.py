@@ -15,7 +15,7 @@ class LoginPageLocators:
 
 
 class UnauthorizedPageLocators:
-    pass
+    ALERT_LOCATOR = (By.XPATH, '//form[contains(@id, "login_form")]//div[contains(@class, "formMsg ")]')
 
 
 class MainPageLocators:
@@ -32,8 +32,7 @@ class CampaignNewPageLocators:
     TRAFFIC_LOCATOR = (By.XPATH, '//div[contains(@class, "_traffic")]')
     URL_INPUT_LOCATOR = (By.XPATH, '//div[contains(@class, "mainUrl-module-inputWrap")]//input')
     CAMPAGN_NAME_INPUT_LOCATOR = (By.XPATH, '//div[contains(@class, "input_campaign-name")]//input')
-    CAMPAGN_FORMAT_BANNER_LOCATOR = (
-        By.XPATH, '//div[contains(@class, "banner-format-item")]//*[contains(text(),\'Баннер\')]')
+    CAMPAGN_FORMAT_BANNER_LOCATOR = (By.XPATH, '//div[contains(@data-id, "banner")]')
     ADD_UPLOAD_BANNER_LOCATOR = (By.XPATH, '//input[contains(@data-test, "image_240x400")]')
     SAVE_UPLOAD_BANNER_LOCATOR = (By.XPATH, '//input[contains(@class, "image-cropper__save")]')
     CREATE_CAMPAING_LOCATOR = (By.XPATH, '//div[contains(@class, "js-save-button-wrap")]//button')

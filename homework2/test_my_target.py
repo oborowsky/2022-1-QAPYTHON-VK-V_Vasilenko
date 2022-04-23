@@ -1,8 +1,6 @@
 import uuid
 import pytest
 from base import BaseCase
-from ui.pages.login_page import LoginPage
-from ui.pages.unauthorized_page import UnauthorizedPage
 from static.constants import *
 import allure
 
@@ -16,7 +14,7 @@ class TestLogin(BaseCase):
     def test_invalid_login(self, login_page):
         random_string = str(uuid.uuid4())
         page = login_page.login(random_string, PASSWORD)
-        assert isinstance(page, LoginPage)
+        assert page.alert()
 
     @allure.epic("UI")
     @allure.feature("Авторизация на портале")
@@ -25,7 +23,7 @@ class TestLogin(BaseCase):
     def test_wrong_password(self, login_page):
         random_string = str(uuid.uuid4())
         page = login_page.login(EMAIL, random_string)
-        assert isinstance(page, UnauthorizedPage)
+        assert page.alert()
 
 
 class TestCampaign(BaseCase):
