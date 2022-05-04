@@ -9,7 +9,8 @@ class TestMyTarget(BaseCase):
     def test_create_segment(self):
         segment_id = self.create_segment()
         status = self.status_segment(segment_id)
-        assert status == 'processing' or status == 'ready'
+        self.delete_segment(segment_id)
+        assert status in ['processing', 'ready']
 
     @pytest.mark.API
     def test_delete_segment(self):
@@ -19,6 +20,17 @@ class TestMyTarget(BaseCase):
         assert status == 'not found'
 
     @pytest.mark.API
-    def test_campaigns(self):
-        campaigns_id = self.create_campaign()
-        assert self.check_campaign(campaigns_id) and self.delete_campaign(campaigns_id)
+    def test_create_campaign(self):
+        url_id = self.create_url_id()
+        image_id = self.create_image_id()
+        campaigns_id = self.create_campaign(url_id, image_id)
+        check = self.check_campaign(campaigns_id)
+        self.delete_campaign(campaigns_id)
+        assert check
+
+    @pytest.mark.API
+    def test_delete_campaign(self):
+        url_id = self.create_url_id()
+        image_id = self.create_image_id()
+        campaigns_id = self.create_campaign(url_id, image_id)
+        assert self.delete_campaign(campaigns_id)
