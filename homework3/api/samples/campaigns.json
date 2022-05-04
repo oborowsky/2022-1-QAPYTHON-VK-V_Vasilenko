@@ -1,0 +1,19 @@
+{
+  "name": "qwerty",
+  "objective": "traffic",
+  "package_id": 666,
+  "banners": [
+    {
+      "urls": {
+        "primary": {
+          "id": 666
+        }
+      },
+      "content": {
+        "image_240x400": {
+          "id": 666
+        }
+      }
+    }
+  ]
+}
