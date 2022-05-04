@@ -1,4 +1,5 @@
 import json
+import os
 import pathlib
 import uuid
 import requests
@@ -39,7 +40,8 @@ class ApiClient:
                             data=data)
 
     def post_create_segment(self, phrase):
-        dir_path = pathlib.Path.cwd()
+        script_path = os.path.dirname(os.path.abspath(__file__))
+        dir_path = pathlib.Path(script_path).parent
         file_path = str(pathlib.Path(dir_path, 'api', 'samples', 'remarketing_segments.json'))
         with open(file_path) as file:
             data_json = json.load(file)
@@ -64,7 +66,8 @@ class ApiClient:
         return self.request('GET', CREATE_CAMPAIGN_URL(target_url))
 
     def post_create_campaign_image(self):
-        dir_path = pathlib.Path.cwd()
+        script_path = os.path.dirname(os.path.abspath(__file__))
+        dir_path = pathlib.Path(script_path).parent
         file_path = str(pathlib.Path(dir_path, 'api', 'samples', 'my_ffxiv_character.jpg'))
 
         with open(file_path, 'rb') as file:
@@ -72,7 +75,8 @@ class ApiClient:
             return self.request('POST', CREATE_CAMPAIGN_IMAGE, files=files)
 
     def post_create_campaign(self, url_id, image_id):
-        dir_path = pathlib.Path.cwd()
+        script_path = os.path.dirname(os.path.abspath(__file__))
+        dir_path = pathlib.Path(script_path).parent
         file_path = str(pathlib.Path(dir_path, 'api', 'samples', 'campaigns.json'))
         with open(file_path) as file:
             data_json = json.load(file)
