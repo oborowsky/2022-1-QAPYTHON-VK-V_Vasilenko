@@ -17,6 +17,12 @@ def GET_SEGMENT(segment_id):
     return f'https://target.my.com/api/v2/coverage/segment.json?id={str(segment_id)}'
 
 
+def CREATE_CAMPAIGN_URL(target_url):
+    return f'https://target.my.com/api/v1/urls/?url={target_url}'
+
+
+CREATE_CAMPAIGN_IMAGE = 'https://target.my.com/api/v2/content/static.json'
+
 CREATE_CAMPAIGN = 'https://target.my.com/api/v2/campaigns.json'
 
 
